@@ -13,7 +13,7 @@ import com.banking.entity.Transaction;
 import com.banking.service.TransactionService;
 
 @Controller("/api")
-public class TransactionController {
+public class TransactionController { 
 	
 	@Autowired
 	TransactionService service;
