@@ -11,7 +11,7 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int transferFrom;
-	private int trasferTo;
+	private int transferTo;
 	private txnType transactionType;
 	private boolean isInterBankTxn;
 	private double amount;
@@ -20,49 +20,81 @@ public class Transaction {
 	enum txnType{
 		CREDIT,DEBIT
 	}
-	
-	public Transaction(int id, int transferFrom, int trasferTo, double amount, String date) {
+
+	public Transaction(int id, int transferFrom, int trasferTo, txnType transactionType, boolean isInterBankTxn,
+			double amount, String date) {
 		super();
 		this.id = id;
 		this.transferFrom = transferFrom;
-		this.trasferTo = trasferTo;
+		this.transferTo = trasferTo;
+		this.transactionType = transactionType;
+		this.isInterBankTxn = isInterBankTxn;
 		this.amount = amount;
 		this.date = date;
 	}
+
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public int getTransferFrom() {
 		return transferFrom;
 	}
+
 	public void setTransferFrom(int transferFrom) {
 		this.transferFrom = transferFrom;
 	}
+
 	public int getTrasferTo() {
-		return trasferTo;
+		return transferTo;
 	}
+
 	public void setTrasferTo(int trasferTo) {
-		this.trasferTo = trasferTo;
+		this.transferTo = trasferTo;
 	}
+
+	public txnType getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(txnType transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	public boolean isInterBankTxn() {
+		return isInterBankTxn;
+	}
+
+	public void setInterBankTxn(boolean isInterBankTxn) {
+		this.isInterBankTxn = isInterBankTxn;
+	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	
 	
 	
 }
