@@ -16,7 +16,7 @@ public class AccountService {
 	}
 	
 	public Account getAccount(int id) {
-		return repo.getById(id);
+		return repo.findById(id).get();
 	}
 	
 	public Account updateAccount(Account account) {

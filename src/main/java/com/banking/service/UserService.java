@@ -19,4 +19,13 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
+	public User updateUser(User user) {
+		User temp = userRepo.getById(user.getId());
+		temp.setName(user.getName());
+		temp.setEmail(user.getEmail());
+		temp.setContactNo(user.getContactNo());
+		temp.setPin(user.getPin());
+		return userRepo.save(temp);
+	}
+	
 }
