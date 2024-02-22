@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banking.entity.User;
+import com.banking.exceptions.NoSuchUserException;
 import com.banking.service.UserService;
+
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +26,13 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/user/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public User getUser(@PathVariable int id) throws NoSuchUserException {
+		try {
+			return userService.getUserById(id);
+		}
+		catch(NoSuchElementException ex) {
+			throw new NoSuchUserException("No such user present in the system");
+		}
 	}
 	
 	@PutMapping("/updateUser")
