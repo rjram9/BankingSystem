@@ -22,6 +22,16 @@ public class MyRestExceptionHandler extends ResponseEntityExceptionHandler {
 		error.setTime(new java.util.Date());
 		return handleExceptionInternal(e,error, new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE,req);
 	}
+	
+	@ExceptionHandler(value= {InsufficientBalanceException.class})
+	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+	protected ResponseEntity<Object> errorHandler(InsufficientBalanceException e, WebRequest req){
+		MyErrorResponse error = new MyErrorResponse();
+		error.setMessage(e.getMessage());
+		error.setErrorcode("400");
+		error.setTime(new java.util.Date());
+		return handleExceptionInternal(e,error, new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE,req);
+	}
 
 }
 	

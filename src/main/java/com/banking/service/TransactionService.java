@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.banking.entity.Account;
 import com.banking.entity.Transaction;
+import com.banking.exceptions.InsufficientBalanceException;
 import com.banking.repository.TransactionRepository;
 
 @Service
+
 public class TransactionService {
 	
 	@Autowired
@@ -20,13 +22,20 @@ public class TransactionService {
 	@Autowired
 	AccountService acntService;
 	
-	public Transaction createTransaction(Transaction txn) {
+	public Transaction createTransaction(Transaction txn) throws InsufficientBalanceException {
+		
+		double txnAmnt = txn.getAmount();
+		int fromAcnt = txn.getTransferFrom();
+		int toAcnt = txn.getTransferTo();
+		double fromAcntBal = acntService.getBalance(fromAcnt);
+		
+		if(txnAmnt>fromAcntBal) {
+			throw new InsufficientBalanceException("Insufficient Balance");
+		}
+		
 		Transaction temp = repo.save(txn);
+		
 		if(temp.getTransactionType().equals("DEBIT")) {
-			double txnAmnt = temp.getAmount();
-			int fromAcnt = temp.getTransferFrom();
-			int toAcnt = temp.getTransferTo();
-			
 			Account fromAcntObj = acntService.getAccount(fromAcnt);
 			Account toAcntObj = acntService.getAccount(toAcnt);
 			fromAcntObj.setBalance(fromAcntObj.getBalance()-txnAmnt);

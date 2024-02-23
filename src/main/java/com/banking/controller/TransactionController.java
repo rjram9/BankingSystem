@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banking.entity.Transaction;
+import com.banking.exceptions.InsufficientBalanceException;
 import com.banking.service.TransactionService;
 
 @RestController
@@ -28,7 +29,7 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/transfer")
-	public Transaction transfer(@RequestBody Transaction txn){
+	public Transaction transfer(@RequestBody Transaction txn) throws InsufficientBalanceException{
 		return service.createTransaction(txn);
 	}
 	
