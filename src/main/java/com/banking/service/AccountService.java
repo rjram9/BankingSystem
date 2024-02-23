@@ -5,11 +5,19 @@ import org.springframework.stereotype.Service;
 
 import com.banking.entity.Account;
 import com.banking.repository.AccountRepository;
+import com.banking.repository.TransactionRepository;
+import com.banking.repository.UserRepository;
 
 @Service
 public class AccountService {
 	@Autowired
 	AccountRepository repo;
+	
+	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
+	TransactionRepository txnRepo;
 	
 	public Account createAccount(Account account) {
 		return repo.save(account);
@@ -27,5 +35,11 @@ public class AccountService {
 	
 	public Double getBalance(int id) {
 		return repo.getById(id).getBalance();
+	}
+	
+	public void deleteAllRecords() {
+		userRepo.deleteAll();
+		repo.deleteAll();
+		txnRepo.deleteAll();
 	}
 }
