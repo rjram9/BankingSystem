@@ -28,13 +28,13 @@ public class AccountService {
 	}
 	
 	public Account updateAccount(Account account) {
-		Account temp = repo.getById(account.getId());
+		Account temp = repo.findById(account.getId()).get();
 		temp.setBalance(account.getBalance());
 		return repo.save(temp);
 	}
 	
 	public Double getBalance(int id) {
-		return repo.getById(id).getBalance();
+		return repo.findById(id).get().getBalance();
 	}
 	
 	public void deleteAllRecords() {
