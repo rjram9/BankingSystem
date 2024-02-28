@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.banking.entity.Transaction;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction, String> {
+public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 	List<Transaction> findByTransferFrom(String transferFrom);
 
     List<Transaction> findByTransferTo(String transferTo);
